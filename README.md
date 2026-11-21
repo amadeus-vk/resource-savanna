@@ -24,6 +24,21 @@ python3 -m http.server 8000
 | `styles.css`   | Mantics-inspired savanna theme (full-width column layout)   |
 | `app.js`       | Fetches `catalog.json`, renders toggles, columns and cards  |
 | `catalog.json` | **The only file you edit to manage content**                |
+| `src/Transparant/` | Official Mantics brand assets (logo + icon, transparent PNGs) |
+
+## Brand assets (`src/Transparant/`)
+
+Per the **Mantics Business Graphical Web Style Guide**, the site uses the official
+transparent logo PNGs (Dutch `Transparant` spelling, as in the guide):
+
+| Asset | File | Used for |
+| ----- | ---- | -------- |
+| Primary Full Logo | `src/Transparant/Mantics-logo-color-on-trans@2x.png` | Header logo (links to [www.mantics.eu](https://www.mantics.eu)) |
+| Primary Icon | `src/Transparant/Mantics-Icon-logo-color-on-trans@2x.png` | Favicon / apple-touch-icon |
+
+Other style-guide rules applied: Font Awesome for iconography, gradient text on
+the main headline, and the required contact + social footer (email, phone,
+website, LinkedIn, Facebook, Instagram, "Support us" → `www.mantics.eu/#connect`).
 
 ## Editing content (`catalog.json`)
 

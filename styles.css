@@ -89,10 +89,27 @@ code {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  height: 42px;
+  width: auto;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: translateY(-1px) scale(1.02);
+  filter: drop-shadow(0 4px 14px rgba(232, 163, 61, 0.35));
+}
+
+.brand-fallback {
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 1.15rem;
-  text-decoration: none;
 }
 
 .header-note {
@@ -137,7 +154,10 @@ h1 {
 }
 
 .accent {
-  color: var(--ochre);
+  background: linear-gradient(92deg, var(--ochre) 0%, var(--amber-light) 45%, var(--terracotta) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   text-shadow: 0 0 34px var(--ochre-glow);
 }
 
@@ -479,7 +499,40 @@ h1 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.02rem;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
+}
+
+.footer-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 22px;
+  margin-bottom: 16px;
+}
+
+.footer-contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--cream-soft);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.footer-contacts a:hover {
+  color: var(--amber-light);
+  transform: translateY(-1px);
+}
+
+.footer-contacts i {
+  color: var(--ochre);
+  font-size: 0.95rem;
+}
+
+.footer-contacts a:hover i {
+  color: var(--amber-light);
 }
 
 .footer-note {
@@ -489,6 +542,18 @@ h1 {
 
 .footer-note a {
   color: var(--sand);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @keyframes rise {
@@ -509,6 +574,14 @@ h1 {
 
   .header-note {
     display: none;
+  }
+
+  .brand-logo {
+    height: 34px;
+  }
+
+  .footer-contacts {
+    gap: 10px 16px;
   }
 
   .toolbar-sticky {
