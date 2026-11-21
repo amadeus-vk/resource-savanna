@@ -1,32 +1,44 @@
 [
   {
-    "name": "Auto",
-    "url": "https://auto.mantics.eu",
-    "category": "new",
-    "description": ""
-  },
-  {
-    "name": "lego-to-dashboards",
-    "url": "https://lego-to-dashboards.mantics.eu",
-    "category": "new",
-    "description": ""
-  },
-  {
-    "name": "Main Site",
-    "url": "https://main-site-7cf.pages.dev",
+    "name": "Operation Scorecard",
+    "url": "https://operation-scorecard.pages.dev",
     "category": "Operational Metrics / Performance Tracking",
-    "description": "This platform likely serves as the central landing page or main entry point for operational metrics and performance tracking."
+    "description": "This platform uses gamified tasks to help businesses diagnose operational bottlenecks and unlock personalized scorecards with coaching sessions."
+  },
+  {
+    "name": "learning_safari_01",
+    "url": "https://learning-safari-01.mantics.eu",
+    "category": "Operational Metrics / Performance Tracking",
+    "description": "Mantics: Interactive Learning Safari is a business coaching platform that uses automated telemetry and meeting transcripts to provide high-level strategic insights and visual summaries of institutional knowledge."
+  },
+  {
+    "name": "Resource Savanna — Link Catalog",
+    "url": "https://auto.mantics.eu",
+    "category": "Service Catalog / Service Directory",
+    "description": "The platform provides access to a service catalog where users can explore active subdomains and automated services."
   },
   {
     "name": "Philosophic",
     "url": "https://philosophic.mantics.eu",
     "category": "Operational Metrics / Performance Tracking",
-    "description": "The service tracks operational metrics and performance indicators for business processes."
+    "description": "The platform tracks user engagement metrics such as active connections, explored nodes, and quantum coherence, suggesting a focus on performance data rather than compliance or service catalogs."
   },
   {
-    "name": "Operation Scorecard",
-    "url": "https://operation-scorecard.pages.dev",
+    "name": "lego-to-dashboards",
+    "url": "https://lego-to-dashboards.mantics.eu",
     "category": "Operational Metrics / Performance Tracking",
-    "description": "Operation Scorecard provides a dashboard for tracking and visualizing key performance indicators and operational metrics to help organizations assess their efficiency and progress."
+    "description": "This platform gamifies team collaboration by tracking daily feedback on energy, fun, and focus using LEGO blocks, then converts this data into insightful dashboards and performance heatmaps to enhance team wellness and productivity."
+  },
+  {
+    "name": "onboarding_safari",
+    "url": "https://onboarding-safari.mantics.eu",
+    "category": "Operational Metrics / Performance Tracking",
+    "description": "The platform serves as an interactive onboarding checklist to help developers align with company values, gather their Ikigai, and document their integration journey using an AI-powered assistant."
+  },
+  {
+    "name": "privacy",
+    "url": "https://privacy.mantics.eu",
+    "category": "Compliance / Legal Documentation",
+    "description": "This platform provides a portal for reviewing, accepting, and managing legal agreements, including Terms of Service and GDPR Privacy Policies. It facilitates regulatory compliance for services by standardizing consent and agreement processes."
   }
 ]
