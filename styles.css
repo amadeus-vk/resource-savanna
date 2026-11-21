@@ -115,8 +115,8 @@ code {
   flex-wrap: wrap;
   row-gap: 6px;
   padding: 6px var(--page-pad);
-  background: rgba(20, 13, 8, 0.82);
-  backdrop-filter: blur(14px);
+  background: rgba(20, 13, 8, 0.2);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -129,14 +129,14 @@ code {
 
 .brand-icon {
   display: block;
-  height: 40px;
+  height: 56px;
   width: auto;
-  filter: drop-shadow(0 0 10px rgba(232, 163, 61, 0.35));
+  filter: drop-shadow(0 0 12px rgba(232, 163, 61, 0.4));
 }
 
 .brand-wordmark {
   display: block;
-  height: 24px;
+  height: 34px;
   width: auto;
 }
 
@@ -149,7 +149,7 @@ code {
   display: none;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 1.35rem;
 }
 
 .brand.no-assets .brand-wordmark,
@@ -264,7 +264,7 @@ h1 {
   top: 82px;
   z-index: 50;
   width: 100%;
-  background: rgba(20, 13, 8, 0.8);
+  background: rgba(20, 13, 8, 0.34);
   backdrop-filter: blur(14px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -640,11 +640,11 @@ h1 {
   }
 
   .brand-icon {
-    height: 32px;
+    height: 44px;
   }
 
   .brand-wordmark {
-    height: 18px;
+    height: 26px;
   }
 
   .header-right {
