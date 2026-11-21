@@ -40,8 +40,10 @@ lowercase `images`). All referenced brand binaries are committed in the repo:
 | `src/transparant/mantics-text-color-on-trans@4x.png` | Compact header wordmark next to the icon |
 | `src/transparant/mantics-icon-logo-color-on-trans@4x.png` | Favicon / apple-touch-icon (same file as the header icon) |
 
-Header references add a graceful fallback: a text lock-up ("Resource Savanna")
-shows if the logo PNGs ever fail to load.
+All image/logo references point at the absolute `https://www.mantics.eu/src/...` URLs
+first (same pattern as the official site) and automatically fall back to the local
+files committed in this repo if a remote asset fails to load. The header additionally
+has a text lock-up fallback if both logo PNGs fail.
 
 Other style-guide rules applied: Font Awesome for iconography, gradient text on
 the main headline, primary logo links to [www.mantics.eu](https://www.mantics.eu),

@@ -9,23 +9,50 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-  <link rel="icon" type="image/png" href="src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
-  <link rel="apple-touch-icon" href="src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
-  <link rel="stylesheet" href="styles.css?v=20260101-3" />
+  <link rel="icon" type="image/png" href="https://www.mantics.eu/src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
+  <link rel="apple-touch-icon" href="https://www.mantics.eu/src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
+  <link rel="stylesheet" href="styles.css?v=20260101-4" />
+  <script>
+    window.savannaAsset = function (img) {
+      if (!img) return;
+      var fb = img.getAttribute('data-fallback');
+      var attempt = parseInt(img.getAttribute('data-attempt') || '0', 10) + 1;
+      img.setAttribute('data-attempt', String(attempt));
+      if (fb) {
+        img.removeAttribute('data-fallback');
+        img.src = fb;
+        return;
+      }
+      img.onerror = null;
+      img.classList.add('is-missing');
+      var brand = img.closest('#brand');
+      if (brand) brand.classList.add('no-assets');
+    };
+  </script>
 </head>
 <body>
   <div class="sunset" aria-hidden="true"></div>
   <div class="giraffe-bg-stage" aria-hidden="true">
-    <img id="giraffe-bg-img" src="src/images/Giraffe_BG.png" alt="" />
+    <img id="giraffe-bg-img"
+         src="https://www.mantics.eu/src/images/Giraffe_BG.png"
+         data-fallback="src/images/Giraffe_BG.png"
+         onerror="window.savannaAsset(this)"
+         alt="" />
   </div>
   <div class="grain" aria-hidden="true"></div>
 
   <header class="site-header">
     <a class="brand" id="brand" href="https://www.mantics.eu" title="Mantics — home of the giraffe">
-      <img class="brand-icon" src="src/transparant/mantics-icon-logo-color-on-trans@4x.png" alt="Mantics"
-           onerror="this.classList.add('is-missing');document.getElementById('brand').classList.add('no-assets');" />
-      <img class="brand-wordmark" src="src/transparant/mantics-text-color-on-trans@4x.png" alt=""
-           onerror="this.classList.add('is-missing');" />
+      <img class="brand-icon"
+           src="https://www.mantics.eu/src/transparant/mantics-icon-logo-color-on-trans@4x.png"
+           data-fallback="src/transparant/mantics-icon-logo-color-on-trans@4x.png"
+           onerror="window.savannaAsset(this)"
+           alt="Mantics" />
+      <img class="brand-wordmark"
+           src="https://www.mantics.eu/src/transparant/mantics-text-color-on-trans@4x.png"
+           data-fallback="src/transparant/mantics-text-color-on-trans@4x.png"
+           onerror="window.savannaAsset(this)"
+           alt="" />
       <span class="brand-fallback">🦒 Resource Savanna</span>
     </a>
     <span class="header-note">Resource Savanna</span>

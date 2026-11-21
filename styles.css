@@ -47,7 +47,7 @@ body {
     radial-gradient(1100px 520px at 82% -8%, rgba(232, 163, 61, 0.2), transparent 62%),
     radial-gradient(880px 460px at 8% 4%, rgba(201, 111, 74, 0.18), transparent 60%),
     radial-gradient(1400px 800px at 50% 118%, rgba(155, 166, 93, 0.12), transparent 65%),
-    url("src/images/background.jpeg") center center / cover no-repeat,
+    url("https://www.mantics.eu/src/images/background.jpeg") center center / cover no-repeat,
     linear-gradient(180deg, var(--bg-dusk) 0%, var(--bg-clay) 52%, #1b120b 100%);
   background-attachment: fixed;
 }
