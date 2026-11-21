@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Auto",
+    "url": "https://auto.mantics.eu",
+    "category": "new",
+    "description": ""
+  },
+  {
+    "name": "lego-to-dashboards",
+    "url": "https://lego-to-dashboards.mantics.eu",
+    "category": "new",
+    "description": ""
+  },
+  {
+    "name": "Main Site",
+    "url": "https://main-site-7cf.pages.dev",
+    "category": "Operational Metrics / Performance Tracking",
+    "description": "This platform likely serves as the central landing page or main entry point for operational metrics and performance tracking."
+  },
+  {
+    "name": "Philosophic",
+    "url": "https://philosophic.mantics.eu",
+    "category": "Operational Metrics / Performance Tracking",
+    "description": "The service tracks operational metrics and performance indicators for business processes."
+  },
+  {
+    "name": "Operation Scorecard",
+    "url": "https://operation-scorecard.pages.dev",
+    "category": "Operational Metrics / Performance Tracking",
+    "description": "Operation Scorecard provides a dashboard for tracking and visualizing key performance indicators and operational metrics to help organizations assess their efficiency and progress."
+  }
+]
