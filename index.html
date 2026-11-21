@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resource Savanna — Curated Link Directory</title>
+  <meta name="description" content="A JSON-driven link directory with category filters, styled after the playful-professional savanna ethos of mantics.eu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="sunset" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#">🦒 Resource Savanna</a>
+    <nav class="site-nav">
+      <a href="#overview">Herds</a>
+      <a href="#directory">Links</a>
+      <a class="nav-cta" href="https://www.mantics.eu" target="_blank" rel="noopener">Style Origin ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">🦓 Curated Directory • Filter by Herd</p>
+      <h1>Be a Giraffe in a<br /><span class="accent">World of Links</span></h1>
+      <p class="hero-lead">
+        A playful-professional link directory. Categories act as filters, every link carries a
+        description, and the whole savanna is fed by a single <code>data.json</code> file.
+      </p>
+      <div class="hero-stats" id="heroStats" aria-live="polite"></div>
+    </section>
+
+    <section class="overview" id="overview">
+      <p class="section-eyebrow">🎞️ Herds &amp; Habitats</p>
+      <h2>The Herds</h2>
+      <p class="section-lead">Every category of the savanna at a glance. Pick a herd to filter the directory below.</p>
+      <div class="overview-grid" id="overviewGrid"></div>
+    </section>
+
+    <section class="directory" id="directory">
+      <p class="section-eyebrow">🧭 Savanna Expedition Directory</p>
+      <h2>Explore the Links</h2>
+      <p class="section-lead">Filter by herd or search by name, description or tag.</p>
+
+      <div class="toolbar">
+        <div class="filters" id="filters" role="tablist" aria-label="Category filters"></div>
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">🔎</span>
+          <input type="search" id="search" placeholder="Search the savanna…" autocomplete="off" />
+        </div>
+      </div>
+
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+      <div class="link-grid" id="linkGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <span class="empty-emoji" aria-hidden="true">🌵</span>
+        <p>No links match this spot of the savanna. Try another herd or clear the search.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-concept">Humanity Over Logic 🦒 — links curated, descriptions served by <code>data.json</code>.</p>
+    <p class="footer-note">Visual language adapted from <a href="https://www.mantics.eu" target="_blank" rel="noopener">www.mantics.eu</a>.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
