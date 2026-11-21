@@ -1,169 +1,193 @@
+const PALETTE = ["#e8a33d", "#c96f4a", "#9ba65d", "#d4b483", "#a97e5f", "#c9a227", "#7e9b76", "#b98cd4"];
+
 const state = {
+  items: [],
   categories: [],
-  links: [],
-  activeCategory: "all",
+  enabled: new Set(),
   query: ""
 };
 
 const els = {
   heroStats: document.getElementById("heroStats"),
-  overviewGrid: document.getElementById("overviewGrid"),
-  filters: document.getElementById("filters"),
+  toggles: document.getElementById("toggles"),
+  toggleAllBtn: document.getElementById("toggleAllBtn"),
   search: document.getElementById("search"),
-  linkGrid: document.getElementById("linkGrid"),
+  columns: document.getElementById("columns"),
   resultCount: document.getElementById("resultCount"),
-  emptyState: document.getElementById("emptyState")
+  emptyState: document.getElementById("emptyState"),
+  emptyMessage: document.getElementById("emptyMessage")
 };
-
-function mainElement() {
-  return document.querySelector("main");
-}
 
 function renderLoadError() {
   const isFile = location.protocol === "file:";
   const message = isFile
     ? "The savanna needs a web server to graze. Run <code>python3 -m http.server</code> in this folder and open <code>http://localhost:8000</code>."
-    : "Could not load <code>data.json</code>. Check that the file exists and is valid JSON.";
-  mainElement().innerHTML = `<div class="empty-state"><span class="empty-emoji">🦒</span><p>${message}</p></div>`;
+    : "Could not load <code>catalog.json</code>. Check that the file exists and is valid JSON.";
+  document.querySelector("main").innerHTML = `<div class="empty-state"><span class="empty-emoji">🦒</span><p>${message}</p></div>`;
 }
 
 async function loadData() {
-  const res = await fetch("data.json", { headers: { Accept: "application/json" } });
+  const res = await fetch("catalog.json", { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  const data = await res.json();
+  if (!Array.isArray(data)) throw new Error("catalog.json must be an array");
+  return data;
 }
 
-function categoryById(id) {
-  return state.categories.find((c) => c.id === id);
+function deriveCategories(items) {
+  const order = [];
+  const seen = new Set();
+  for (const item of items) {
+    const name = (item.category || "Uncategorised").trim();
+    if (!seen.has(name)) {
+      seen.add(name);
+      order.push(name);
+    }
+  }
+  return order.map((name, i) => ({
+    id: name,
+    name,
+    color: PALETTE[i % PALETTE.length]
+  }));
 }
 
-function linksFor(categoryId) {
-  return state.links.filter((l) => l.category === categoryId);
+function normalizeItem(item, index) {
+  return {
+    name: (item.name || item.title || `Untitled link ${index + 1}`).trim(),
+    url: (item.url || item.link || "#").trim(),
+    category: (item.category || "Uncategorised").trim(),
+    description: (item.description || "").trim()
+  };
+}
+
+function hostOf(url) {
+  try {
+    return new URL(url).host.replace(/^www\./, "");
+  } catch (err) {
+    return url;
+  }
 }
 
 function renderHeroStats() {
   els.heroStats.innerHTML = `
-    <span class="stat-chip"><strong>${state.links.length}</strong> links</span>
+    <span class="stat-chip"><strong>${state.items.length}</strong> links</span>
     <span class="stat-chip"><strong>${state.categories.length}</strong> herds</span>
-    <span class="stat-chip"><strong>${new Set(state.links.flatMap((l) => l.tags || [])).size}</strong> tags</span>
+    <span class="stat-chip"><strong>${state.enabled.size}</strong> herds in view</span>
   `;
 }
 
-function categoryCardHtml(cat, count, preview) {
-  return `
-    <button class="herder-card" type="button" data-category="${cat.id}" style="--accent-color: ${cat.color};">
-      <div class="herder-head">
-        <span class="herder-icon">${cat.icon}</span>
-        <span class="herder-count">${count} link${count === 1 ? "" : "s"}</span>
-      </div>
-      <h3>${cat.name}</h3>
-      <p>${cat.description}</p>
-      ${preview ? `<p class="herder-preview">${preview}…</p>` : ""}
-    </button>
-  `;
+function categoryColor(id) {
+  const cat = state.categories.find((c) => c.id === id);
+  return cat ? cat.color : "#e8a33d";
 }
 
-function allCategory() {
-  return {
-    id: "all",
-    name: "The Whole Savanna",
-    icon: "🌅",
-    color: "#e8a33d",
-    description: "Every link in the directory, no fences."
-  };
+function hexWithAlpha(hex, alpha) {
+  const n = hex.replace("#", "");
+  const r = parseInt(n.slice(0, 2), 16);
+  const g = parseInt(n.slice(2, 4), 16);
+  const b = parseInt(n.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-function renderOverview() {
-  const cards = [allCategory(), ...state.categories];
-
-  els.overviewGrid.innerHTML = cards
+function renderToggles() {
+  els.toggles.innerHTML = state.categories
     .map((cat) => {
-      const count = cat.id === "all" ? state.links.length : linksFor(cat.id).length;
-      const preview =
-        cat.id === "all"
-          ? ""
-          : `${linksFor(cat.id)
-              .map((l) => l.title)
-              .slice(0, 3)
-              .join(" • ")}…`;
-      return categoryCardHtml(cat, count, preview);
-    })
-    .join("");
-
-  els.overviewGrid.querySelectorAll(".herder-card").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      setFilter(btn.dataset.category);
-      document.getElementById("directory").scrollIntoView({ behavior: "smooth" });
-    });
-  });
-}
-
-function renderFilters() {
-  const chips = [allCategory(), ...state.categories];
-
-  els.filters.innerHTML = chips
-    .map((chip) => {
-      const count = chip.id === "all" ? state.links.length : linksFor(chip.id).length;
+      const count = state.items.filter((item) => item.category === cat.id).length;
       return `
-        <button class="filter-btn" type="button" role="tab" aria-selected="false"
-          data-category="${chip.id}" style="--accent-color: ${chip.color};">
-          <span aria-hidden="true">${chip.icon}</span> ${chip.name}
-          <span class="filter-count">${count}</span>
+        <button class="toggle-btn" type="button" aria-pressed="true" data-category="${escapeHtml(cat.id)}"
+          style="--accent-color: ${cat.color};">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          ${escapeHtml(cat.name)}
+          <span class="toggle-count">${count}</span>
         </button>
       `;
     })
     .join("");
 
-  els.filters.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.addEventListener("click", () => setFilter(btn.dataset.category));
+  els.toggles.querySelectorAll(".toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.category;
+      const on = !state.enabled.has(id);
+      if (on) state.enabled.add(id);
+      else state.enabled.delete(id);
+      btn.setAttribute("aria-pressed", String(on));
+      renderView();
+    });
   });
+
+  syncToggleAllBtn();
 }
 
-function matchingLinks() {
+function syncToggleAllBtn() {
+  const allOn = state.enabled.size === state.categories.length;
+  els.toggleAllBtn.textContent = allOn ? "Hide all" : "Show all";
+}
+
+function matches(item) {
   const q = state.query.trim().toLowerCase();
-  return state.links.filter((link) => {
-    const inCategory = state.activeCategory === "all" || link.category === state.activeCategory;
-    if (!inCategory) return false;
-    if (!q) return true;
-    const haystack = [
-      link.title,
-      link.description,
-      (link.tags || []).join(" "),
-      (categoryById(link.category) || {}).name || ""
-    ]
-      .join(" ")
-      .toLowerCase();
-    return haystack.includes(q);
-  });
+  if (!q) return true;
+  return [item.name, item.description, item.url, item.category].join(" ").toLowerCase().includes(q);
 }
 
-function renderLinks() {
-  const links = matchingLinks();
+function cardHtml(item, color, index) {
+  const desc = item.description ? `<p class="link-desc">${escapeHtml(item.description)}</p>` : "";
+  return `
+    <a class="link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener"
+       style="--accent-color: ${color}; animation-delay: ${Math.min(index * 40, 320)}ms;">
+      <h3 class="link-name">${escapeHtml(item.name)}</h3>
+      ${desc}
+      <span class="link-host">${escapeHtml(hostOf(item.url))}</span>
+    </a>
+  `;
+}
 
-  els.resultCount.textContent = links.length
-    ? `${links.length} link${links.length === 1 ? "" : "s"} in view`
-    : "No links in view";
+function renderColumns() {
+  const q = state.query.trim().toLowerCase();
+  const visible = state.categories.filter((c) => state.enabled.has(c.id));
 
-  els.linkGrid.innerHTML = links
-    .map((link, i) => {
-      const cat = categoryById(link.category);
-      const color = cat ? cat.color : "#e8a33d";
-      const tags = (link.tags || []).map((t) => `<span class="tag">#${t}</span>`).join("");
+  els.columns.innerHTML = visible
+    .map((cat, columnIndex) => {
+      const items = state.items.filter((item) => item.category === cat.id && matches(item));
+      let body;
+      if (items.length === 0) {
+        body = `<div class="column-empty">${
+          q ? `No matches in this herd.` : "No links in this herd yet."
+        }</div>`;
+      } else {
+        body = items.map((item, i) => cardHtml(item, cat.color, i)).join("");
+      }
       return `
-        <a class="link-card" href="${link.url}" target="_blank" rel="noopener"
-           style="--accent-color: ${color}; animation-delay: ${Math.min(i * 45, 360)}ms;">
-          <div class="link-top">
-            <span class="category-badge">${cat ? `${cat.icon} ${cat.name}` : "Uncategorised"}</span>
+        <section class="column" style="--accent-color: ${cat.color}; --accent-faint: ${hexWithAlpha(cat.color, 0.14)}; animation-delay: ${Math.min(columnIndex * 70, 350)}ms;">
+          <div class="column-head">
+            <p class="column-count">${items.length} link${items.length === 1 ? "" : "s"}${q ? " matching" : ""}</p>
+            <h2 class="column-title">${escapeHtml(cat.name)}</h2>
           </div>
-          <h3>${escapeHtml(link.title)}</h3>
-          <p class="link-desc">${escapeHtml(link.description)}</p>
-          <div class="tag-row">${tags}</div>
-        </a>
+          <div class="column-body">
+            ${body}
+          </div>
+        </section>
       `;
     })
     .join("");
 
-  els.emptyState.hidden = links.length > 0;
+  const totalVisible = state.items.filter((item) => state.enabled.has(item.category) && matches(item)).length;
+  els.resultCount.textContent = `${totalVisible} of ${state.items.length} links in view · ${visible.length} of ${state.categories.length} herds`;
+
+  if (visible.length === 0) {
+    els.emptyMessage.textContent = "All herds are switched off. Hit “Show all” to bring the savanna back.";
+    els.emptyState.hidden = false;
+  } else if (totalVisible === 0) {
+    els.emptyMessage.textContent = `No links match “${escapeHtml(state.query.trim())}”. Try another word or clear the search.`;
+    els.emptyState.hidden = false;
+  } else {
+    els.emptyState.hidden = true;
+  }
+}
+
+function renderView() {
+  renderColumns();
+  renderHeroStats();
+  syncToggleAllBtn();
 }
 
 function escapeHtml(text) {
@@ -172,39 +196,29 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-function setFilter(categoryId) {
-  state.activeCategory = categoryId;
-
-  els.filters.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.setAttribute("aria-selected", String(btn.dataset.category === categoryId));
-  });
-
-  els.overviewGrid.querySelectorAll(".herder-card").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.category === categoryId);
-  });
-
-  renderLinks();
-}
-
 async function init() {
   try {
-    const data = await loadData();
-    state.categories = data.categories || [];
-    state.links = data.links || [];
-
-    if (data.site) {
-      if (data.site.brand) document.querySelector(".brand").textContent = data.site.brand;
-      if (data.site.searchPlaceholder) els.search.placeholder = data.site.searchPlaceholder;
-    }
+    const raw = await loadData();
+    state.items = raw.map(normalizeItem);
+    state.categories = deriveCategories(state.items);
+    state.enabled = new Set(state.categories.map((c) => c.id));
 
     renderHeroStats();
-    renderOverview();
-    renderFilters();
-    renderLinks();
+    renderToggles();
+    renderColumns();
 
     els.search.addEventListener("input", (e) => {
       state.query = e.target.value;
-      renderLinks();
+      renderColumns();
+    });
+
+    els.toggleAllBtn.addEventListener("click", () => {
+      const allOn = state.enabled.size === state.categories.length;
+      state.enabled = allOn ? new Set() : new Set(state.categories.map((c) => c.id));
+      els.toggles.querySelectorAll(".toggle-btn").forEach((btn) => {
+        btn.setAttribute("aria-pressed", String(state.enabled.has(btn.dataset.category)));
+      });
+      renderView();
     });
   } catch (err) {
     renderLoadError();
