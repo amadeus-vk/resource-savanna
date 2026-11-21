@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="icon" type="image/png" href="https://www.mantics.eu/src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
   <link rel="apple-touch-icon" href="https://www.mantics.eu/src/transparant/mantics-icon-logo-color-on-trans@4x.png" />
-  <link rel="stylesheet" href="styles.css?v=20260101-6" />
+  <link rel="stylesheet" href="styles.css?v=20260101-7" />
   <script>
     window.savannaAsset = function (img) {
       if (!img) return;
@@ -55,18 +55,18 @@
            alt="" />
       <span class="brand-fallback">🦒 Resource Savanna</span>
     </a>
-    <div class="header-center">
-      <span class="eyebrow-pill"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i> Link Catalog</span>
-      <p class="header-tagline">
-        One column per category, side by side. Switch herds on and off with the buttons,
-        or search across the whole savanna below.
-      </p>
-    </div>
     <div class="header-right">
       <div class="hero-stats" id="heroStats" aria-live="polite"></div>
-      <div class="header-toggles" id="toggles" role="group" aria-label="Category on/off switches"></div>
     </div>
   </header>
+
+  <div class="header-banner">
+    <span class="eyebrow-pill"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i> Link Catalog</span>
+    <p class="header-tagline">
+      One column per category, side by side. Switch herds on and off with the buttons,
+      or search across the whole savanna below.
+    </p>
+  </div>
 
   <main>
     <section class="hero">
@@ -84,6 +84,7 @@
           <span class="result-count" id="resultCount" aria-live="polite"></span>
         </div>
       </div>
+      <div class="toggles" id="toggles" role="group" aria-label="Category on/off switches"></div>
     </div>
 
     <div class="columns" id="columns"></div>
@@ -108,6 +109,6 @@
     <p class="footer-note">Giraffe-approved branding ․ logos &amp; style from the official Mantics style guide.</p>
   </footer>
 
-  <script src="app.js?v=20260101-6"></script>
+  <script src="app.js?v=20260101-7"></script>
 </body>
 </html>
