@@ -111,10 +111,10 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px 20px;
+  gap: 12px 20px;
   flex-wrap: wrap;
-  row-gap: 8px;
-  padding: 8px var(--page-pad);
+  row-gap: 6px;
+  padding: 6px var(--page-pad);
   background: rgba(20, 13, 8, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -198,13 +198,20 @@ code {
   max-width: 560px;
 }
 
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  margin-left: auto;
+}
+
 .header-toggles {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: 6px;
-  margin-left: auto;
 }
 
 .header-toggles .toggle-btn {
@@ -230,17 +237,17 @@ main {
 }
 
 .hero {
-  padding: 40px 0 36px;
+  padding: 22px 0 20px;
   max-width: 900px;
 }
 
 h1 {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.4rem, 5.5vw, 4rem);
-  line-height: 1.05;
+  font-size: clamp(1.8rem, 3.8vw, 2.7rem);
+  line-height: 1.08;
   letter-spacing: -0.01em;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .accent {
@@ -254,25 +261,26 @@ h1 {
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .stat-chip {
   display: inline-flex;
   align-items: baseline;
-  gap: 7px;
+  gap: 5px;
   border: 1px solid var(--line);
   border-radius: var(--radius-full);
   background: var(--surface);
-  padding: 9px 16px;
-  font-size: 0.85rem;
+  padding: 3px 10px;
+  font-size: 0.7rem;
   color: var(--cream-soft);
+  white-space: nowrap;
 }
 
 .stat-chip strong {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: var(--cream);
 }
 
@@ -669,9 +677,13 @@ h1 {
     flex-basis: 100%;
   }
 
-  .header-toggles {
+  .header-right {
     order: 2;
     margin-left: 0;
+    align-items: flex-start;
+  }
+
+  .header-toggles {
     justify-content: flex-start;
   }
 
