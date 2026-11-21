@@ -20,7 +20,7 @@ python3 -m http.server 8000
 
 | File           | Purpose                                                    |
 | -------------- | ---------------------------------------------------------- |
-| `index.html`   | Page shell: hero, sticky toolbar, category columns          |
+| `index.html`   | Page shell: compact header (brand / Link Catalog pill / herd toggles), toolbar, columns |
 | `styles.css`   | Mantics-inspired savanna theme (full-width column layout)   |
 | `app.js`       | Fetches `catalog.json`, renders toggles, columns and cards  |
 | `catalog.json` | **The only file you edit to manage content**                |

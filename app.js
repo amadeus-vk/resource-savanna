@@ -190,6 +190,12 @@ function renderView() {
   syncToggleAllBtn();
 }
 
+function syncToolbarOffset() {
+  const header = document.querySelector(".site-header");
+  const toolbar = document.querySelector(".toolbar-sticky");
+  if (header && toolbar) toolbar.style.top = header.offsetHeight + 6 + "px";
+}
+
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = String(text);
@@ -206,6 +212,8 @@ async function init() {
     renderHeroStats();
     renderToggles();
     renderColumns();
+    syncToolbarOffset();
+    window.addEventListener("resize", syncToolbarOffset);
 
     els.search.addEventListener("input", (e) => {
       state.query = e.target.value;
