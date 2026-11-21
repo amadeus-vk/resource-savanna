@@ -30,18 +30,18 @@ python3 -m http.server 8000
 ## Brand assets (`src/`)
 
 The site mirrors the asset layout of **www.mantics.eu** (lowercase `transparant`,
-lowercase `images`) so drop-in files resolve at runtime exactly like on the
-official site. Currently present in the repo:
+lowercase `images`). All referenced brand binaries are committed in the repo:
 
-| File | Status | Used for |
-| ---- | ------ | -------- |
-| `src/images/Giraffe_BG.png` | present (2400 x 1792) | Ambient fixed background layer behind the content, slow zoom/pan like mantics.eu |
-| `src/transparant/mantics-icon-logo-color-on-trans@4x.png` | to add | Compact header brand icon + favicon fallback |
-| `src/transparant/mantics-text-color-on-trans@4x.png` | to add | Compact header wordmark next to the icon |
-| `src/images/background.jpeg` | to add | Savanna wallpaper under the sunset gradients (page renders fine without it) |
+| File | Used for |
+| ---- | -------- |
+| `src/images/Giraffe_BG.png` | Ambient fixed background layer behind the content, slow zoom/pan like mantics.eu |
+| `src/images/background.jpeg` | Savanna wallpaper under the sunset gradients (page renders fine without it too) |
+| `src/transparant/mantics-icon-logo-color-on-trans@4x.png` | Compact header brand icon |
+| `src/transparant/mantics-text-color-on-trans@4x.png` | Compact header wordmark next to the icon |
+| `src/transparant/mantics-icon-logo-color-on-trans@4x.png` | Favicon / apple-touch-icon (same file as the header icon) |
 
-Missing files degrade gracefully: the header falls back to a text lock-up
-("Resource Savanna"), and the background blends into the savanna sunset gradient.
+Header references add a graceful fallback: a text lock-up ("Resource Savanna")
+shows if the logo PNGs ever fail to load.
 
 Other style-guide rules applied: Font Awesome for iconography, gradient text on
 the main headline, primary logo links to [www.mantics.eu](https://www.mantics.eu),
