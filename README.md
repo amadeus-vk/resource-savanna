@@ -24,21 +24,29 @@ python3 -m http.server 8000
 | `styles.css`   | Mantics-inspired savanna theme (full-width column layout)   |
 | `app.js`       | Fetches `catalog.json`, renders toggles, columns and cards  |
 | `catalog.json` | **The only file you edit to manage content**                |
-| `src/Transparant/` | Official Mantics brand assets (logo + icon, transparent PNGs) |
+| `src/images/`   | Ambient background layer (`Giraffe_BG.png`), wallpaper slot   |
+| `src/transparant/` | Official Mantics transparent logo PNGs (icon + wordmark)    |
 
-## Brand assets (`src/Transparant/`)
+## Brand assets (`src/`)
 
-Per the **Mantics Business Graphical Web Style Guide**, the site uses the official
-transparent logo PNGs (Dutch `Transparant` spelling, as in the guide):
+The site mirrors the asset layout of **www.mantics.eu** (lowercase `transparant`,
+lowercase `images`) so drop-in files resolve at runtime exactly like on the
+official site. Currently present in the repo:
 
-| Asset | File | Used for |
-| ----- | ---- | -------- |
-| Primary Full Logo | `src/Transparant/Mantics-logo-color-on-trans@2x.png` | Header logo (links to [www.mantics.eu](https://www.mantics.eu)) |
-| Primary Icon | `src/Transparant/Mantics-Icon-logo-color-on-trans@2x.png` | Favicon / apple-touch-icon |
+| File | Status | Used for |
+| ---- | ------ | -------- |
+| `src/images/Giraffe_BG.png` | present (2400 x 1792) | Ambient fixed background layer behind the content, slow zoom/pan like mantics.eu |
+| `src/transparant/mantics-icon-logo-color-on-trans@4x.png` | to add | Compact header brand icon + favicon fallback |
+| `src/transparant/mantics-text-color-on-trans@4x.png` | to add | Compact header wordmark next to the icon |
+| `src/images/background.jpeg` | to add | Savanna wallpaper under the sunset gradients (page renders fine without it) |
+
+Missing files degrade gracefully: the header falls back to a text lock-up
+("Resource Savanna"), and the background blends into the savanna sunset gradient.
 
 Other style-guide rules applied: Font Awesome for iconography, gradient text on
-the main headline, and the required contact + social footer (email, phone,
-website, LinkedIn, Facebook, Instagram, "Support us" → `www.mantics.eu/#connect`).
+the main headline, primary logo links to [www.mantics.eu](https://www.mantics.eu),
+and the required contact + social footer (email, phone, website, LinkedIn,
+Facebook, Instagram, "Support us" pointing at `www.mantics.eu/#connect`).
 
 ## Editing content (`catalog.json`)
 

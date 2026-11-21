@@ -1,8 +1,8 @@
 :root {
   --bg-dusk: #191009;
   --bg-clay: #221610;
-  --surface: rgba(255, 240, 220, 0.05);
-  --surface-strong: rgba(255, 240, 220, 0.09);
+  --surface: rgba(23, 15, 9, 0.6);
+  --surface-strong: rgba(23, 15, 9, 0.8);
   --line: rgba(240, 200, 150, 0.16);
   --cream: #f5ead8;
   --cream-soft: rgba(245, 234, 216, 0.68);
@@ -42,12 +42,42 @@ body {
 .sunset {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   background:
     radial-gradient(1100px 520px at 82% -8%, rgba(232, 163, 61, 0.2), transparent 62%),
     radial-gradient(880px 460px at 8% 4%, rgba(201, 111, 74, 0.18), transparent 60%),
     radial-gradient(1400px 800px at 50% 118%, rgba(155, 166, 93, 0.12), transparent 65%),
+    url("src/images/background.jpeg") center center / cover no-repeat,
     linear-gradient(180deg, var(--bg-dusk) 0%, var(--bg-clay) 52%, #1b120b 100%);
+  background-attachment: fixed;
+}
+
+.giraffe-bg-stage {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.giraffe-bg-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.42;
+  filter: saturate(0.85) brightness(0.8);
+  transform-origin: 50% 42%;
+  will-change: transform;
+  animation: giraffe-drift 44s ease-in-out infinite alternate;
+}
+
+@keyframes giraffe-drift {
+  from {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.18) translate3d(-1.5%, 1.5%, 0);
+  }
 }
 
 .grain {
@@ -82,8 +112,8 @@ code {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px var(--page-pad);
-  background: rgba(25, 16, 9, 0.78);
+  padding: 8px var(--page-pad);
+  background: rgba(20, 13, 8, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
@@ -91,29 +121,46 @@ code {
 .brand {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   text-decoration: none;
 }
 
-.brand-logo {
+.brand-icon {
   display: block;
-  height: 42px;
+  height: 28px;
   width: auto;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 0 10px rgba(232, 163, 61, 0.35));
 }
 
-.brand:hover .brand-logo {
-  transform: translateY(-1px) scale(1.02);
-  filter: drop-shadow(0 4px 14px rgba(232, 163, 61, 0.35));
+.brand-wordmark {
+  display: block;
+  height: 17px;
+  width: auto;
+}
+
+.brand-icon.is-missing,
+.brand-wordmark.is-missing {
+  display: none;
 }
 
 .brand-fallback {
+  display: none;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1rem;
+}
+
+.brand.no-assets .brand-wordmark,
+.brand.no-assets .brand-icon {
+  display: none;
+}
+
+.brand.no-assets .brand-fallback {
+  display: inline;
 }
 
 .header-note {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--cream-faint);
@@ -194,10 +241,10 @@ h1 {
 
 .toolbar-sticky {
   position: sticky;
-  top: 58px;
+  top: 46px;
   z-index: 50;
   width: 100%;
-  background: rgba(25, 16, 9, 0.88);
+  background: rgba(20, 13, 8, 0.8);
   backdrop-filter: blur(14px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -576,8 +623,12 @@ h1 {
     display: none;
   }
 
-  .brand-logo {
-    height: 34px;
+  .brand-icon {
+    height: 24px;
+  }
+
+  .brand-wordmark {
+    height: 14px;
   }
 
   .footer-contacts {
@@ -585,7 +636,7 @@ h1 {
   }
 
   .toolbar-sticky {
-    top: 54px;
+    top: 41px;
   }
 
   .columns {
@@ -605,6 +656,10 @@ h1 {
 
   .link-card,
   .column {
+    animation: none;
+  }
+
+  .giraffe-bg-stage img {
     animation: none;
   }
 
